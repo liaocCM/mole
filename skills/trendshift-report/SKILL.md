@@ -39,28 +39,39 @@ The API returns data for the day *before* the date in the query. The script hand
 
 ## Deduplication
 
-Before generating any report, check if `skills/trendshift-report/data/trendshift-{date}.md` already exists. If it does, notify the user and skip generation unless they explicitly ask to regenerate.
+Before generating any report, check if `skills/trendshift-report/data/daily/trendshift-{date}.md` already exists. If it does, notify the user and skip generation unless they explicitly ask to regenerate.
 
 ## Output Location
 
-Always save reports to `skills/trendshift-report/data/trendshift-{date}.md`. After writing the file, briefly confirm completion — do **not** print the full report content in the terminal.
+Always save daily reports to `skills/trendshift-report/data/daily/trendshift-{date}.md`. After writing the file, briefly confirm completion — do **not** print the full report content in the terminal.
 
 ## Workflow
 
 **Quick report** (no READMEs):
 1. Run `scripts/fetch_trendshift.py {date}`
-2. Save output to `skills/trendshift-report/data/trendshift-{date}.md`
+2. Save output to `skills/trendshift-report/data/daily/trendshift-{date}.md`
 3. Confirm with a one-line summary (e.g. "Saved trendshift-2026-02-20.md — 25 repos")
 
 **Deep report** (with README-based descriptions):
 1. Run `scripts/fetch_trendshift.py {date} --readme --json > /tmp/trendshift.json`
 2. Read the JSON to get repo data + README excerpts
-3. Write the report to `skills/trendshift-report/data/trendshift-{date}.md` following `references/report-template.md`
+3. Write the report to `skills/trendshift-report/data/daily/trendshift-{date}.md` following `references/report-template.md`
 4. Confirm with a one-line summary — do not print the full report
 
 ## Report Format
 
-See `references/report-template.md` for the exact format — load it when writing a deep report.
+See `references/report-template.md` for the daily format — load it when writing a deep report.
+See `references/weekly-report-template.md` for the weekly format.
+
+## Weekly Report Workflow
+
+1. Determine the date range (e.g. Monday to Sunday, or as specified by user)
+2. Ensure daily JSON caches exist in `/tmp/` for each date in the range; fetch missing ones via `scripts/fetch_trendshift.py {date} --readme --json > /tmp/trendshift-{date}.json`
+3. Aggregate across all days: deduplicate repos by name, keep the best score and best rank, count how many days each repo appeared
+4. Sort by best score descending
+5. Write to `skills/trendshift-report/data/weekly/trendshift-weekly-{start}-to-{end}.md` following `references/weekly-report-template.md`
+6. Each repo gets the same three prose sections as daily (Background, Problem it solves, Why another one?) — base on README content from the JSON cache
+7. Check for existing weekly report before generating; skip if it exists unless user asks to regenerate
 
 ## Notes
 
