@@ -69,9 +69,10 @@ See `references/weekly-report-template.md` for the weekly format.
 2. Ensure daily JSON caches exist in `/tmp/` for each date in the range; fetch missing ones via `scripts/fetch_trendshift.py {date} --readme --json > /tmp/trendshift-{date}.json`
 3. Aggregate across all days: deduplicate repos by name, keep the best score and best rank, count how many days each repo appeared
 4. Sort by best score descending
-5. Write to `skills/trendshift-report/data/weekly/trendshift-weekly-{start}-to-{end}.md` following `references/weekly-report-template.md`
+5. Write English version to `skills/trendshift-report/data/weekly/en/trendshift-weekly-{start}-to-{end}.md` following `references/weekly-report-template.md`
 6. Each repo gets the same three prose sections as daily (Background, Problem it solves, Why another one?) — base on README content from the JSON cache
-7. Check for existing weekly report before generating; skip if it exists unless user asks to regenerate
+7. Generate Traditional Chinese (zh-TW) translation to `skills/trendshift-report/data/weekly/zh-tw/trendshift-weekly-{start}-to-{end}.md` — translate prose, description blockquotes, headers, and theme; keep repo names, URLs, language names, numbers, dates, and metadata labels in English. Use existing zh-tw reports as reference for translation conventions.
+8. Check for existing weekly report before generating; skip if it exists unless user asks to regenerate
 
 ## Notes
 
