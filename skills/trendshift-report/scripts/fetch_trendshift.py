@@ -9,7 +9,7 @@ import urllib.error
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-NEXT_ACTION = "6099bcb027166d24d8d1b4b377f8feb2c884b6f6f7"
+NEXT_ACTION = "60aef8abf8b57eb2bdb72f93d6f3299e7b5a3485e8"
 TRENDSHIFT_URL = "https://trendshift.io/"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
